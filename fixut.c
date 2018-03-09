@@ -16,8 +16,8 @@ int showhelp(_TCHAR* arg)
 
 	printf(" \n");
 	printf(" Version: 0.0.1\n");
-	printf(" Created: 2003.03.19\n");
-	printf(" Revised: 2007.11.03\n\n");
+	printf(" Created: 2008.07.22\n");
+	printf(" Revised: 2011.09.18\n\n");
 	printf(" Compiled with Borland's BCC version 5.5.1 (Freeware)\n\n");
 	printf(" SYNOPSYS:\n");
 	printf(" \tFix broken torrent's downloaded files.\n\n");
