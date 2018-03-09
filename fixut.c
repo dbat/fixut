@@ -28,6 +28,10 @@ int showhelp(_TCHAR* arg)
 	printf(" \t- must be a real filename, not a wildcard\n");
 	printf(" \t- must have had the corresponding *.!ut file\n");
 	printf(" \t  after processing, the *.!ut files can be safely discarded\n\n", s);
+	printf(" EXAMPLE:\n");
+	printf(" \tC:\\> %s somefile.bin secondfile.dat third.rar\n", s);
+	printf(" \tC:\\> for %%f in (*.zip) do %s \"%%f\"\n", s);
+	printf(" \n");
 	printf(" Press any key to continue..\n"); getch();
 	return 1;
 
@@ -57,7 +61,7 @@ const unsigned long BLOCK = 1 << POWERSHIFT;
 
 int _tmain(int c, _TCHAR* args[])
 {
-	int i, k, len, changed;
+	int i, k, len, changed, filechanged;
 	DWORD got;
 	HANDLE source, target;
 	LARGE_INTEGER qsize;
@@ -76,7 +80,7 @@ int _tmain(int c, _TCHAR* args[])
 
 	bufs = malloc(BLOCK); if (!bufs) return showerr("Not enough memory");
 	buft = malloc(BLOCK); if (!buft) return showerr("Not enough memory");
-	printf("Buffer size: %dMB\n", BLOCK>>20);
+	//printf("Buffer size: %dMB\n", BLOCK>>20);
 
 	for (i = 1; i < c; i++) {
 		printf("File \"%s\" ", args[i]);
@@ -112,6 +116,7 @@ int _tmain(int c, _TCHAR* args[])
 		}
 
 		//printf("File size: %I64d\n", sourcesize);
+		filechanged = 0;
 		SetFilePointer(target, 0, NULL, 0);
 		SetFilePointer(source, 0, NULL, 0);
 		while (sourcesize > 0) {
@@ -124,7 +129,7 @@ int _tmain(int c, _TCHAR* args[])
 			for (k = 0; (DWORD)k < got; k++) {
 				if ((buft[k] == 0) && (bufs[k] > 0)) {
 					buft[k] = bufs[k];
-					changed = 1;
+					filechanged = changed = 1;
 				}
 			}
 
@@ -135,7 +140,8 @@ int _tmain(int c, _TCHAR* args[])
         }
 		CloseHandle(target);
 		CloseHandle(source);
-		printf("- done\n");
+		if(filechanged) printf("- done\n");
+		else printf("- not changed\n");
 	}
 	free(bufs);
 	free(buft);
