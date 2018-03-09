@@ -1,13 +1,14 @@
 # fixut
 fix broken torrent download files !.ut
 
-when uTorrent crash or interrupted it usually left broken downloaded files
-(all files downloaded but split into 2 files: filename.ext and filename.ext.!ut)
+When uTorrent 2.2..1 crash or interrupted it sometime produces broken
+downloaded files (all files downloaded completely, but split into 2 files:
+filename.ext and filename.ext.!ut partial files)
 
-this tool fix (or accuratekly: combine the content) of those file
-after fixup, the *.!ut files can be discarded
+This tool fix (or accuratekly: combine the content) of those files.
+After fixup, the *.!ut files can be discarded
 
-to build de tool, simply compile fixut.c with borland's bcc 5:
+To build the tool, simply compile fixut.c with borland's bcc 5:
   bcc32 fixut.c
 
 source code included, you may modify it as you wish.
