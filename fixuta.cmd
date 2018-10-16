@@ -28,3 +28,5 @@ for %%f in (*.?ut) do (
 )
 echo.
 echo. All done, you can delete all succesfully repaired *ut files
+
+@pause
